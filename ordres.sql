@@ -29,3 +29,26 @@ SELECT name as nom, manufacturer,price as prix, units_sold as solde_unite, price
 --- << changer le name par le nom
 ---<< rajouter euros dans le contenu de la colonne price et changer le nom de la colonne
 SELECT CONCAT(manufacturer," ",name) as nom,CONCAT(price,"€") as prix FROM telephones;
+
+
+-- Création d'une vue
+CREATE VIEW v_revenu_total AS SELECT name AS modele, manufacturer AS constructeur,price AS prix, units_sold AS unites_vendues, (price*units_sold) AS chiffre_affaire FROM telephones;
+
+
+-- retourner les uniques sans doublons // eliminer les doublons 
+SELECT DISTINCT(manufacturer) FROM telephones;
+
+
+
+-- calculer le nb d'enregistrement avec la commande COUNT 
+---- <<< Afficher le nombre d'appareils Apple
+
+SELECT COUNT(*) FROM telephones WHERE manufacturer="apple";
+
+--TOTAL DE VENTES (calculer la somme) des units_sold // moyenne // vente plus elevees // VENTE MOINS elevees
+
+SELECT SUM(units_sold) FROM telephones;
+SELECT AVG(units_sold) FROM telephones;
+SELECT MAX(units_sold) FROM telephones;
+SELECT MIN(units_sold) FROM telephones;
+
