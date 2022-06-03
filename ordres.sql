@@ -18,3 +18,14 @@ SELECT id,name,manufacturer,price FROM telephones ORDER BY price DESC;
 -- Afficher en ordre decroissant avec deux conditions
 SELECT id,name,manufacturer,price FROM telephones ORDER BY price DESC,manufacturer;
 
+-- pour calculer par exp le CA dans la table telephones
+SELECT name, manufacturer,price, units_sold, price*units_sold FROM telephones;
+
+-- pour modifier le nom de la colonne apres un Resulat on utilise la commande as
+SELECT name as nom, manufacturer,price as prix, units_sold as solde_unite, price*units_sold as CA FROM telephones;
+
+-- pour rajouter du caractere par exemple sur la colonne price (euros), on utlise CONCAT
+--- << dans cette requete on a fusionner la colonne manufacturer et name avec CONCAT
+--- << changer le name par le nom
+---<< rajouter euros dans le contenu de la colonne price et changer le nom de la colonne
+SELECT CONCAT(manufacturer," ",name) as nom,CONCAT(price,"€") as prix FROM telephones;
