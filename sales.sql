@@ -26,3 +26,4 @@ SELECT name,manufacturer FROM telephones;
 
 SELECT name,manufacturer FROM telephones WHERE price>=150 AND price<=200;
 SELECT * FROM telephones WHERE manufacturer=Samsung OR manufacturer=Apple;
+
