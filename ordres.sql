@@ -52,3 +52,52 @@ SELECT AVG(units_sold) FROM telephones;
 SELECT MAX(units_sold) FROM telephones;
 SELECT MIN(units_sold) FROM telephones;
 
+-- LMD 4 : Relation entre plusieurs tables (mère/enfant) appelé "One To Many"
+-- On va pouvoir utiliser la clé primaire de la table initiale (mère) dans la table enfant, qui sera appelée clé étrangère (référence)
+-- On reprend la DB clients
+CREATE TABLE clients(
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    email VARCHAR(70) UNIQUE,
+    telephone VARCHAR(20) NOT NULL
+);
+-- On veut maintenant faire une table secondaire pour les téléphones
+-- Il faut préciser la clé étrangère <FOREIGN KEY(son_nouveau_nom)> et son lieu initial <REFERENCES la_table(nom_colonne)>
+CREATE TABLE telephone(
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    numero VARCHAR(20) NOT NULL,
+    id_client INTEGER,
+    FOREIGN KEY(id_client) REFERENCES clients(id) ON DELETE CASCADE
+);
+-- On peut maintenant ajouter des valeurs dans cette nouvelle table
+INSERT INTO telephone(numero,id_client) 
+VALUES
+("0123456798",1),
+("0153456798",1),
+("012345698",2),
+("0123456798",2),
+("0124456798",2),
+("0123458798",4),
+("0123452798",4),
+("0178452798",4),
+("0123451298",5),
+("0122252798",6)
+;
+
+-- Affichage de tous les numéros de téléphones de tous les clients (requête de jointure)
+
+-- Tables sollicitées: clients et téléphone
+
+-- Pour choisir les données d'une table spécifique, on va mettre le nom de table et la colonne voulue <table.colonne>
+
+-- Pour faire la jonction entre les tables, on utilise <FROM> la DB mère <JOIN> la DB secondaire <ON> 
+
+-- Et on précise où est faite la jointure: la colonne de la DB principale = la colonne de la DB secondaire
+
+SELECT clients.prenom, clients.nom, telephone.numero FROM clients JOIN telephone ON clients.id=telephone.id_client;
+
+-- Autre exemple avec ajout d'un CONCAT et d'un alias:
+
+SELECT CONCAT(clients.prenom, " ",clients.nom) AS nom, telephone.numero FROM clients JOIN telephone ON clients.id=telephone.id_client;
+
