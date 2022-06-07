@@ -101,3 +101,40 @@ SELECT clients.prenom, clients.nom, telephone.numero FROM clients JOIN telephone
 
 SELECT CONCAT(clients.prenom, " ",clients.nom) AS nom, telephone.numero FROM clients JOIN telephone ON clients.id=telephone.id_client;
 
+
+-- Il est possible de définir les requêtes mathèmatiques comme calcul automatique via <GENERATED ALWAYS> <AS> <le_calcul> <STORED>
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `clientId` int(11) NOT NULL,
+  `typePresta` varchar(100) NOT NULL,
+  `designation` varchar(100) NOT NULL,
+  `nbDays` int(11) NOT NULL,
+  `unitPrice` float NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `totalExcludeTaxe` float GENERATED ALWAYS AS (`nbDays` * `unitPrice`) STORED,
+  `totalWithTaxe` float GENERATED ALWAYS AS (`nbDays` * `unitPrice` * 1.2) STORED
+);
+
+
+
+-- Utilisation de filtres de recherche avec <LIKE> et <%>
+
+-- Chaine qui commencent par M2
+
+SELECT * FROM clients 
+WHERE companyName LIKE "M2%";
+
+-- Chaine qui se terminent par formation
+
+SELECT * FROM clients 
+WHERE companyName LIKE "%formation";
+
+-- Rechercher au milieu d'une chaine
+-- chris@sopra.com => ok
+-- jean@m2i.com
+-- sarah@sopra.fr => ok
+-- luc@sopra.edu => ok
+
+SELECT * FROM clients 
+WHERE  companyName LIKE "%sopra%"
