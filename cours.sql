@@ -138,3 +138,20 @@ WHERE companyName LIKE "%formation";
 
 SELECT * FROM clients 
 WHERE  companyName LIKE "%sopra%"
+
+
+-- Requête HAVING : utilisé à la place de WHERE lorsque l'on groupe des résultats
+
+-- Toutes les ventes des marques qui ont réalisé un CA de plus de 20000000
+
+SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire 
+FROM telephones 
+GROUP BY manufacturer HAVING chiffre_affaire>20000000
+;
+
+-- On peut utiliser une requête SELECT dans une contrainte WHERE:
+
+SELECT name, price 
+FROM telephones 
+WHERE price<(SELECT AVG(price) FROM telephones) 
+ORDER BY price DESC
