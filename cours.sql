@@ -64,6 +64,13 @@ CREATE TABLE clients(
 );
 -- On veut maintenant faire une table secondaire pour les téléphones
 -- Il faut préciser la clé étrangère <FOREIGN KEY(son_nouveau_nom)> et son lieu initial <REFERENCES la_table(nom_colonne)>
+
+---- ON DELETE CASCADE : si on supprime le client, tous les num associés sont suppr
+-- ON DELETE SET NULL : le client est supprimé, mais le champ est marqué comme NULL mais gardé
+-- ON DELETE RESTRICT : si on essaie de suppr n° tel, tant que c'est associé à un client, ERROR
+--                      pas la possiblité de faire cette action
+-- ON UPDATE CASCADE : si ID de table clients modifiée, mise à jour sur table telephone
+
 CREATE TABLE telephone(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     numero VARCHAR(20) NOT NULL,
