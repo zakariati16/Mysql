@@ -67,17 +67,21 @@ insert into utilisateurs (id, nom, prenom, username, adresse_email, avatar) valu
 SELECT commentaire.contenu, utilisateurs.username from utilisateurs JOIN commentaire 
 ON utilisateurs.id=commentaire.id_user; 
 
---question 5
+--question 5 Pour chaque commentaire, afficher son contenu et l'url de la photo à laquel le commentaire a été ajouté
 
-SELECT commentaire.contenu,photos.url_image from commentaire
-Join photos
-ON commentaire.id_user=photos.id;
+SELECT commentaire.id, photos.url_image , commentaire.contenu, utilisateurs.username
+FROM commentaire
+JOIN utilisateurs
+ON utilisateurs.id=commentaire.id_user
+JOIN photos
+ON utilisateurs.id=photos.id_user
+;
 
 --question 6
 
-SELECT photos.url_image,CONCAT(utilisateurs.nom," ",utilisateurs.prenom) AS Contact FROM utilisateurs
-Join photos
-ON utilisateurs.id=photos.id;
+SELECT photos.url_image,CONCAT(utilisateurs.nom," ",utilisateurs.prenom) AS Contact FROM photos
+Join utilisateurs
+ON photos.id=utilisateurs.id;
 
 --question 7
 
